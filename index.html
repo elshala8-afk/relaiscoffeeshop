@@ -335,17 +335,6 @@
   .mood-btn[data-mood="blue"]{background:#5c7fb8;}
   .mood-btn[data-mood="teal"]{background:#81b3ae;}
   .mood-btn[data-mood="pink"]{background:#e8779e;}
-  @media (max-width:520px){
-    /* the illustration renders much shorter on narrow phones, so the
-       fixed-size hotspot dots (and their pulse rings) end up crowding
-       each other — shrink them, and nudge the one that collides with
-       the mood toggle in the bottom-left corner. */
-    .spot{width:24px;height:24px;margin:-12px 0 0 -12px;}
-    .spot::before{inset:-5px;}
-    .spot[data-key="banc"]{left:44%;top:76%;}
-    .moods{padding:6px;gap:7px;}
-    .mood-btn{width:20px;height:20px;}
-  }
 
   .scroll-cue{
     display:flex;flex-direction:column;align-items:center;gap:8px;
@@ -360,20 +349,49 @@
     .scroll-cue svg, .nav-hint svg{animation:none;}
   }
   @media (max-width:640px){
-    /* edge-to-edge arrival: the illustration fills the full width with no
-       gutter/card styling, so it reads as a photograph you've stepped into
-       rather than a small boxed image on a page. the hero fills the whole
-       first screen — landscape illustration + solid mood-colour band below
-       it, with the scroll cue pinned near the bottom — so nothing from the
-       next section is visible until the visitor actually scrolls. */
-    .hero{min-height:auto;justify-content:flex-start;padding:72px 0 40px;gap:12vh;}
-    .frame-wrap{width:100%;max-width:none;}
-    .frame{border-radius:0;box-shadow:none;}
+    /* full-screen arrival: the illustration itself fills the entire first
+       screen, edge to edge, with no gutter/card styling — it reads as a
+       place you've stepped into, not a small picture on a page. the image
+       is wider than it is tall, so covering a tall phone screen means
+       cropping it horizontally (object-fit:cover) — every hotspot below is
+       repositioned to match exactly where it now sits inside that crop, so
+       nothing drifts out of alignment with the illustration underneath.
+       the crop ratio is derived from viewport WIDTH only (not height), so
+       it's identical on every phone regardless of screen height. */
+    .hero{min-height:auto;padding:0;gap:0;}
+    .frame-wrap{width:100%;max-width:none;height:calc(100vw * 1.262);}
+    .frame{width:100%;height:100%;border-radius:0;box-shadow:none;}
+    .frame img{object-position:78% 50%;}
     .frame::after{
       content:"";
       position:absolute;inset:0;
-      background:linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 16%, transparent 72%, rgba(0,0,0,0.3) 100%);
+      background:linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 18%, transparent 62%, rgba(0,0,0,0.42) 100%);
       pointer-events:none;
+    }
+    .tagline{display:none;}
+
+    .spot{width:24px;height:24px;margin:-12px 0 0 -12px;}
+    .spot::before{inset:-5px;}
+    .spot[data-key="personnages"]{left:56.7%;}
+    .spot[data-key="tables"]{left:24.6%;}
+    .spot[data-key="banc"]{left:11%;top:83%;}
+    .spot[data-key="plante"]{left:25.9%;}
+    .spot[data-key="baffe"]{left:45.8%;}
+    .spot[data-key="lumiere"]{left:63.4%;}
+    .spot[data-key="cd"]{left:87%;}
+    .spot[data-key="menu"]{left:91%;}
+
+    .moods{left:auto;right:16px;bottom:16px;padding:6px;gap:7px;}
+    .mood-btn{width:20px;height:20px;}
+
+    .scroll-cue{
+      position:absolute;left:50%;bottom:18px;transform:translateX(-50%);
+      flex-direction:row;gap:7px;
+      background:rgba(20,17,14,0.4);
+      backdrop-filter:blur(3px);
+      padding:8px 14px;
+      border-radius:999px;
+      opacity:1;
     }
   }
 
