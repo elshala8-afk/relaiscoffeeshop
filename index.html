@@ -360,10 +360,21 @@
     .scroll-cue svg, .nav-hint svg{animation:none;}
   }
   @media (max-width:640px){
-    /* on narrow/portrait screens the illustration is width-limited, not
-       height-limited — a full-viewport-height hero leaves huge empty bands
-       above and below it, so let the hero hug its content instead. */
-    .hero{min-height:auto;justify-content:flex-start;padding-top:88px;padding-bottom:32px;}
+    /* edge-to-edge arrival: the illustration fills the full width with no
+       gutter/card styling, so it reads as a photograph you've stepped into
+       rather than a small boxed image on a page. the hero fills the whole
+       first screen — landscape illustration + solid mood-colour band below
+       it, with the scroll cue pinned near the bottom — so nothing from the
+       next section is visible until the visitor actually scrolls. */
+    .hero{min-height:auto;justify-content:flex-start;padding:72px 0 40px;gap:12vh;}
+    .frame-wrap{width:100%;max-width:none;}
+    .frame{border-radius:0;box-shadow:none;}
+    .frame::after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.22) 0%, transparent 16%, transparent 72%, rgba(0,0,0,0.3) 100%);
+      pointer-events:none;
+    }
   }
 
   /* ---------- ritual strip ---------- */
